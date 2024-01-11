@@ -5,8 +5,9 @@ const items = [
 ];
 
 function ShoppingList() {
-  const listItems = items.map((item) => <li key={item.id}>{item.name}</li>);
-
+  const listItems = items.map((item) => {
+    <li key={item.id}>name = {item.name}</li>;
+  });
   return <ul>{listItems}</ul>;
 }
 

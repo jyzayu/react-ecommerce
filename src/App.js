@@ -1,30 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
-//  sharing data between components from parent component
-function MyButton({ count, handleClick }) {
-  return (
-    <div>
-      <button onClick={handleClick}>Click {count} times!</button>
-    </div>
-  );
-}
+import Reat, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  // using hooks ,  function starting with use called  hooks
-  // You can only call Hooks at the top of your components
-  const [count, setCount] = useState(1);
+  const [posts, setPosts] = useState([]);
 
-  function handleClick() {
-    setCount(count * 2);
-    console.log(count);
-  }
+  useEffect(() => {
+    axios
+      .get('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => setPosts(response.data));
+  });
 
-  //  sharing data between components from parent component
   return (
     <div>
-      <MyButton count={count} handleClick={handleClick} />
-      <MyButton count={count} handleClick={handleClick} />
+      <ul>
+        {' '}
+        {posts.map((post) => (
+          <li key={post.id}>
+            {' '}
+            title = {post.title} body {post.body}{' '}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
